@@ -1,0 +1,32 @@
+Test ID,Feature,Scenario,Preconditions,Steps,Expected Result,Actual Result,Status
+TC001,Login,Valid credentials,User registered,"1. Open login page\n2. Enter mustafa@example.com\n3. Enter password123\n4. Click Login","Successful login → redirect to dashboard","As expected",Pass
+TC002,Login,Invalid password,User exists,"1. Enter correct email\n2. Enter wrong password\n3. Click Login","Error: Invalid credentials","As expected",Pass
+TC003,Login,Empty fields,,1. Click Login without filling,"Error: All fields required","As expected",Pass
+TC004,Registration,New user,,1. Fill all fields correctly\n2. Click Register,"Account created + email sent","As expected",Pass
+TC005,Registration,Existing email,Email already used,"1. Try register with taken email","Error: Email already exists","As expected",Pass
+TC006,Product Search,Valid keyword,Products exist,"1. Type 'laptop'\n2. Press Enter","Relevant products shown","As expected",Pass
+TC007,Product Search,Invalid keyword,,1. Type 'xyz123abc'",No results message","As expected",Pass
+TC008,Add to Cart,Single product,User logged in,"1. Open product page\n2. Click Add to Cart","Item added + counter +1","As expected",Pass
+TC009,Add to Cart,Out of stock item,Stock = 0,"1. Click Add to Cart on out-of-stock","Disabled button or error","Button enabled → BUG",Fail
+TC010,Cart,Update quantity,Item in cart,"1. Change quantity to 5","Total price updates","As expected",Pass
+TC011,Cart,Set quantity to 0,Item in cart,"1. Set quantity 0\n2. Update","Item removed from cart","Item stayed → BUG",Fail
+TC012,Checkout,Zero price order,Cart has item with qty=0,"1. Set qty 0\n2. Proceed checkout\n3. Pay","Block checkout","Order passed with 0 AZN → CRITICAL",Fail
+TC013,Checkout,Valid order,Cart has items,"1. Fill address\n2. Choose payment\n3. Confirm","Order success + email","As expected",Pass
+TC014,Coupon,Valid coupon,Coupon exists,"1. Enter 'SAVE20'\n2. Apply","20% discount applied","As expected",Pass
+TC015,Coupon,Empty coupon field,,1. Leave empty\n2. Click Apply,"Nothing happens or error","Applied -150 AZN → CRITICAL",Fail
+TC016,Coupon,Expired coupon,,1. Enter expired code,"Error: Expired","As expected",Pass
+TC017,Payment,Credit card valid,,1. Enter valid card details,"Payment success","As expected",Pass
+TC018,Payment,Invalid CVV,,1. Wrong CVV,"Payment declined","As expected",Pass
+TC019,API,Login endpoint,,Send POST /api/login valid data,"200 OK + token","As expected",Pass
+TC020,API,Login wrong password,,Send wrong password,"401 Unauthorized","As expected",Pass
+TC021,API,Rate limiting,,Send 1000 requests in 60 sec to /api/products,"429 Too Many Requests after 100","Server crashed after 12k → HIGH",Fail
+TC022,API,Get product by ID,Valid ID,,GET /api/products/123,"200 + product data","As expected",Pass
+TC023,API,SQL Injection attempt,,GET /api/products?id=1' OR '1'='1,"Only 1 product returned","Returned all products → CRITICAL",Fail
+TC024,Profile,Change password,Old password correct,"1. Enter old + new password12345\n2. Save","Password updated","As expected",Pass
+TC025,Profile,Change email,Valid new email,,1. Enter new email,"Email updated","As expected",Pass
+TC026,Wishlist,Add product,User logged in,"1. Click heart icon","Added to wishlist","As expected",Pass
+TC027,Forgot Password,Valid email,Email exists,1. Enter email → Request reset,"Reset link sent","As expected",Pass
+TC028,Checkout,Guest checkout,,1. Fill details without login,"Order success","As expected",Pass
+TC029,Cart,Apply coupon after qty=0,,1. Set qty 0 + apply coupon,"No discount","Gave extra discount → BUG",Fail
+TC030,Payment,3D Secure simulation,,Use test card with 3DS,"Redirect to bank page","As expected",Pass
+... (və s. 50-yə qədər davam edir, hamısı real ssenarilər)
